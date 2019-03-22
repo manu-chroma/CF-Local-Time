@@ -1,5 +1,5 @@
 {
-  "name": "Codeforces: Submissions time in local time zone",
+  "name": "Codeforces: Submission time in local timezone",
   "version": "0.1",
   "description": "View the time associated with your submissions in your local time zone",
   "permissions": [
