@@ -1,6 +1,6 @@
 {
   "name": "Codeforces: Submission time in local timezone",
-  "version": "0.1",
+  "version": "0.3",
   "description": "View the time associated with your submissions in your local time zone",
   "permissions": [
     "https://codeforces.com/submissions/*",
@@ -37,6 +37,13 @@
     "16": "images/icons8-timer-16.png",
     "32": "images/icons8-timer-32.png",
     "48": "images/icons8-timer-48.png"
+  },
+  "browser_action": {
+    "default_icon": {
+      "16": "images/icons8-timer-16.png",
+      "32": "images/icons8-timer-32.png",
+      "48": "images/icons8-timer-48.png"
+    }
   },
   "manifest_version": 2
 }
