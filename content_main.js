@@ -20,14 +20,13 @@ const match_date = (str) => {
     if ((m = regex.exec(str)) !== null) {
         return true;
     }
-
     return false;
 }
 
 
 const convert_to_local_time = (date_time_string) => {
     let content = date_time_string
-    content += " +03:00" // Append Moscow time zone before parsing date 
+    content += " +03:00" // Append MST (Moscow time zone) before parsing date 
     let date_in_local_time = DateTime.fromFormat(content, 'yyyy-MM-dd hh:mm:ss ZZ');
     return date_in_local_time
 }
@@ -35,7 +34,7 @@ const convert_to_local_time = (date_time_string) => {
 // Change submission time in the submission status table 
 const change_tm_submission_table = () => {
     console.log('Hello World!')
-    // this captures many divs in the table
+    // currently, this captures many other divs in the table
     let time_div_selector = 'td.status-small'
     let maybe_time_divs = document.querySelectorAll(time_div_selector)
     maybe_time_divs = Array.prototype.slice.call(maybe_time_divs)
@@ -45,10 +44,16 @@ const change_tm_submission_table = () => {
         console.log("Is content: " + content + " date time: " + match_date(content))
         if (match_date(content)) {
             let date = convert_to_local_time(content)
-            let date_str = date.toFormat('yyyy-MM-dd hh:mm:ss ZZ');
+            // 24-hour format for time
+            // Check 'Table of Tokens' in 
+            // https://moment.github.io/luxon/docs/manual/formatting
+            let date_str = date.toFormat('yyyy-MM-dd HH:mm:ss ZZ');
             // don't change div in case date parsing fails
             if (date.invalidReason !== null) {
-                continue;
+                console.error(JSON.stringify(date.invalidReason))
+                // do we want to exit the function 
+                // or still try parsing everything?
+                return;
             }
             console.log("Actual date: " + content + " Converted: " + date_str)
             timeDiv.innerHTML = date_str
@@ -62,4 +67,3 @@ const change_tm_submission_table = () => {
 export function main() {
     change_tm_submission_table();
 }
-
